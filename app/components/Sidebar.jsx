@@ -60,6 +60,7 @@ const AppBar = styled(MuiAppBar, {
 })(({ theme, open }) => ({
   zIndex: theme.zIndex.drawer + 1,
   borderRadius: `5px`,
+  backgroundColor:"#fff",
   width: `calc(100% - ${101}px)`,
   transition: theme.transitions.create(["width", "margin"], {
     easing: theme.transitions.easing.sharp,
@@ -68,6 +69,7 @@ const AppBar = styled(MuiAppBar, {
   ...(open && {
     marginLeft: drawerWidth,
     borderRadius: `5px`,
+    backgroundColor:"#fff",
     width: `calc(100% - ${drawerWidth + 20}px)`,
     transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
@@ -106,10 +108,10 @@ export default function MiniDrawer({ children }) {
 
   return (
     <Box sx={{ display: "flex" }}>
-      <AppBar position="fixed" open={open} color="transparent">
+      <AppBar position="fixed" open={open}>
         <Toolbar>
           <IconButton
-            color="inherit"
+            
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
