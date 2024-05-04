@@ -4,8 +4,9 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import TabsComponent from './TabsComponent';
 import JobCard from './JobCard';
-import { Grid } from '@mui/material';
+import { Button, Grid } from '@mui/material';
 import FilterData from './FilterData';
+import RefreshOutlinedIcon from '@mui/icons-material/RefreshOutlined';
 
 const JobComponent = () => {
     const customStyle = {
@@ -18,61 +19,73 @@ const JobComponent = () => {
         fontSize: '1rem',
         fontWeight: 400,
         display: 'block'
-      };
-      const containerStyle = {
+    };
+
+    const containerStyle = {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center' 
     };
+
     const [jobData, setJobData] = useState(null);
+    const [limit, setLimit] = useState(10); // Initial limit
+
     useEffect(() => {
         const fetchData = async () => {
-          try {
-            const body = JSON.stringify({
-              "limit": 10,
-              "offset": 0
-            });
-            const requestOptions = {
-              method: "POST",
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body
-            };
-            const response = await fetch("https://api.weekday.technology/adhoc/getSampleJdJSON", requestOptions);
-            const data = await response.json();
-            setJobData(data);
-          } catch (error) {
-            console.error(error);
-          }
+            try {
+                const body = JSON.stringify({
+                    "limit": limit,
+                    "offset": 0
+                });
+                const requestOptions = {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body
+                };
+                const response = await fetch("https://api.weekday.technology/adhoc/getSampleJdJSON", requestOptions);
+                const data = await response.json();
+                setJobData(data);
+            } catch (error) {
+                console.error(error);
+            }
         };
         fetchData();
-      }, []);
-    
-console.log(jobData)
+    }, [limit]); // Fetch data when limit changes
 
-  return (
-    <Box >
-      <Typography  sx={customStyle}>
-        We, at Weekday, are creating a go-to hub for uncovering the real issues candidates should be aware of before joining a company. <span>Access 150+ company reviews here</span>
-      </Typography>
-      <Box sx={containerStyle}>
-      <TabsComponent/>
-      </Box>
+    const handleLoadMore = () => {
+        // Increase the limit by a certain amount
+        setLimit(prevLimit => prevLimit + 10);
+    };
 
-      {jobData && (
-        <Box sx= {{padding:"20px"}}>
-        <Grid container spacing={10}>
-          {jobData.jdList.map((job) => (
-            <Grid item xs={12} sm={6} md={4} key={job.jdUid}>
-              <JobCard data={job} />
-            </Grid>
-          ))}
-        </Grid>
+    return (
+        <Box>
+            <Typography sx={customStyle}>
+                We, at Weekday, are creating a go-to hub for uncovering the real issues candidates should be aware of before joining a company. <span>Access 150+ company reviews here</span>
+            </Typography>
+            <Box sx={containerStyle}>
+                <TabsComponent />
+            </Box>
+
+            {jobData && (
+                <Box sx={{ padding: "20px" }}>
+                    <Grid container spacing={10}>
+                        {jobData.jdList.map((job) => (
+                            <Grid item xs={12} sm={6} md={4} key={job.jdUid}>
+                                <JobCard data={job} />
+                            </Grid>
+                        ))}
+                    </Grid>
+                    <Box sx={{ padding: "20px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                        <Button sx={{ backgroundColor: "#fff", color: "#000" }} onClick={handleLoadMore}>
+                            <RefreshOutlinedIcon /> Load More
+                        </Button>
+                    </Box>
+                </Box>
+            )}
         </Box>
-      )}
-    </Box>
-  );
+    );
 };
 
 export default JobComponent;

@@ -131,7 +131,7 @@ const JobCard = ({ data }) => {
               </Typography>
             </div>
           </div>
-          <div class="view-job-cont">
+          <div className="view-job-cont">
             <Typography
               className="v-j-text"
               sx={{ fontSize: "14px", color: "#202fed" }}
@@ -161,7 +161,7 @@ const JobCard = ({ data }) => {
             </Typography>
           </div>
           <div className="status-container">
-            <Button variant="contained" class="btn-status">
+            <Button variant="contained" className="btn-status">
               ⚡ Easy Apply
             </Button>
           </div>
