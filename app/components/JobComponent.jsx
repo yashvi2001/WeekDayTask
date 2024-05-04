@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import TabsComponent from './TabsComponent';
 import JobCard from './JobCard';
 import { Grid } from '@mui/material';
+import FilterData from './FilterData';
 
 const JobComponent = () => {
     const customStyle = {
@@ -51,19 +52,24 @@ const JobComponent = () => {
 console.log(jobData)
 
   return (
-    <Box sx={containerStyle}>
+    <Box >
       <Typography  sx={customStyle}>
         We, at Weekday, are creating a go-to hub for uncovering the real issues candidates should be aware of before joining a company. <span>Access 150+ company reviews here</span>
       </Typography>
+      <Box sx={containerStyle}>
       <TabsComponent/>
+      </Box>
+
       {jobData && (
-        <Grid container spacing={2}>
+        <Box sx= {{padding:"20px"}}>
+        <Grid container spacing={10}>
           {jobData.jdList.map((job) => (
             <Grid item xs={12} sm={6} md={4} key={job.jdUid}>
               <JobCard data={job} />
             </Grid>
           ))}
         </Grid>
+        </Box>
       )}
     </Box>
   );

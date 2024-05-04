@@ -1,4 +1,65 @@
-.info-container{
-    display: flex;
+.info-container {
+  display: flex;
+  gap: 0.5rem;
 }
-  
+p {
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  unicode-bidi: isolate;
+}
+.view-job-cont {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: -10px;
+  backdrop-filter: blur(100px);
+}
+.status-container {
+  width: 100%;
+  padding: 10px 0px;
+  display: flex;
+  flex-direction: column;
+}
+.btn-status {
+  display: inline-flex;
+  background-color: rgb(85, 239, 196) !important;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  position: relative;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  background-color: transparent;
+  outline: 0px;
+  border: 0px;
+  margin: 0px;
+  cursor: pointer;
+  user-select: none;
+  vertical-align: middle;
+  appearance: none;
+  text-decoration: none;
+  font-weight: 500;
+  line-height: 1.75;
+  min-width: 64px;
+  padding: 6px 8px;
+  border-radius: 4px;
+  transition: background-color 250ms rgb(85, 239, 196) 0ms,
+    box-shadow 250ms cubic-bezier rgb(85, 239, 196) 0ms,
+    border-color 250ms cubic-bezier rgb(85, 239, 196) 0ms,
+    color 250ms cubic-bezier rgb(85, 239, 196) 0ms;
+  color: rgb(25, 118, 210);
+  text-transform: none;
+  font-size: 16px;
+}
+.company-data {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 10;
+  font-size: 14px;
+}

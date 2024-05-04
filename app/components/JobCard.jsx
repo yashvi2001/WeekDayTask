@@ -1,84 +1,172 @@
 // JobCard.js
-import React from 'react';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
-import Image from 'next/image';
-const JobCard = ({data}) => {
+import React from "react";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Button from "@mui/material/Button";
+import Image from "next/image";
+const JobCard = ({ data }) => {
   return (
     <Box>
-        <Card>
-          <CardContent>
-            <Typography variant="body1" gutterBottom>
-              ⏳ Posted 19 days ago
+      <Card
+        sx={{
+          transition: "box-shadow 300ms cubicBezier(0.4, 0, 0.2, 1) 0ms",
+          boxShadow: "rgba(0, 0, 0, 0.25) 0px 1px 4px 0px",
+          height: "100%",
+          position: "relative",
+          borderRadius: "20px",
+          padding: "5px",
+          margin:"0 auto"
+        }}
+      >
+        <CardContent>
+          <Typography
+            variant="body1"
+            gutterBottom
+            sx={{
+              padding: "4px 6px",
+              boxShadow: " rgba(6, 6, 6, 0.05) 0px 2px 6px 0px",
+              borderRadius: "10px",
+              border: "1px solid rgb(230, 230, 230)",
+              color: "rgba(0, 0, 0, 0.87)",
+              fontSize: "9px",
+              fontWeight: 400,
+              width: "max-content",
+              marginBottom: "16px",
+            }}
+          >
+            ⏳ Posted 19 days ago
+          </Typography>
+          <div>
+            <div className="info-container">
+              <div>
+                <Image
+                  width={50}
+                  height={50}
+                  src={data.logoUrl}
+                  alt="logo"
+                  style={{
+                    maxWidth: "100%",
+                    display: "block",
+                    overflowClipMargin: "content-box",
+                    overflow: "clip",
+                  }}
+                />
+              </div>
+              <div>
+                <Typography
+                  variant="h5"
+                  sx={{
+                    fontSize: "13px",
+                    fontWeight: 600,
+                    letterSpacing: "1px",
+                    marginBottom: "3px",
+                    color: "#8b8b8b",
+                  }}
+                >
+                  {data.companyName}
+                </Typography>
+                <Typography
+                  variant="h4"
+                  component="h2"
+                  sx={{
+                    fontSize: "14px",
+                    fontWeight: 400,
+                    letterSpacing: "1px",
+                    marginBottom: "3px",
+                  }}
+                >
+                  {data.jobRole &&
+                    data.jobRole.charAt(0).toUpperCase() +
+                      data.jobRole.slice(1)}{" "}
+                  Engineer
+                </Typography>
+                <Typography
+                  variant="subtitle1"
+                  className="cards-sub-text"
+                  sx={{
+                    fontSize: "13px",
+                    fontWeight: 500,
+                    marginTop: "5px",
+                    color: "rgba(0, 0, 0, 0.87)",
+                  }}
+                >
+                  {data.location &&
+                    data.location.charAt(0).toUpperCase() +
+                      data.location.slice(1)}
+                </Typography>
+              </div>
+            </div>
+          </div>
+          <Typography
+            variant="body2"
+            className="card-salary"
+            sx={{
+              fontWeight: 400,
+              fontSize: "14px",
+              margin: "8px 0",
+              color: "rgb(77, 89, 106)",
+            }}
+          >
+            Estimated Salary: ₹20 - 40 LPA{" "}
+            <span aria-label="Offered salary range">✅</span>
+          </Typography>
+          <div className="jd-link-container">
+            <div className="hard-lang-container"></div>
+          </div>
+          <div>
+            <Typography
+              variant="body1"
+              sx={{ fontSize: "1rem", lineHeight: 1.5, fontWeight: 500 }}
+            >
+              About Company:
             </Typography>
             <div>
-              <div className="info-container">
-                <div>
-              <Image  width={50} height={50} src={data.logoUrl} alt="logo" />
-              </div>
-              <div>
-                <Typography variant="h5">
-             {data.companyName}
-                </Typography>
-                <Typography variant="h4" component="h2">
-                {data.jobRole && data.jobRole.charAt(0).toUpperCase() + data.jobRole.slice(1)} Engineer
-                </Typography>
-                <Typography variant="subtitle1" className="cards-sub-text">
-                 {data.location  && data.location.charAt(0).toUpperCase() + data.location.slice(1)}
-                </Typography>
-                </div>
-              </div>
-         
+              <Typography variant="body1" sx={{ fontSize: "14px" }}>
+                <strong>About us</strong>
+              </Typography>
+              <Typography className="company-data">
+               {data.jobDetailsFromCompany}
+              </Typography>
             </div>
-            <Typography variant="body2" className="card-salary">
-              Estimated Salary: ₹20 - 40 LPA <span aria-label="Offered salary range">✅</span>
+          </div>
+          <div class="view-job-cont">
+            <Typography
+              className="v-j-text"
+              sx={{ fontSize: "14px", color: "#202fed" }}
+            >
+              View job
             </Typography>
-            <div className="jd-link-container">
-              <div className="hard-lang-container"></div>
-            </div>
-            <div>
-              <Typography variant="body1">About Company:</Typography>
-              <div>
-                <Typography variant="body1"><strong>About us</strong></Typography>
-                <Typography variant="body1">
-                  80% of code in modern applications is code your developers didn’t write, but “borrowed” from the internet...
-                </Typography>
-                <Typography variant="body1"><strong>Founder/Recruiter profiles:</strong></Typography>
-                <Typography variant="body1">
-                  <a href="https://www.linkedin.com/in/vbadhwar/">Varun Badhwar</a>
-                </Typography>
-              </div>
-              <Typography variant="body1">About Role:</Typography>
-              <div>
-                <Typography variant="body1"><strong>Overview</strong></Typography>
-                <Typography variant="body1">
-                  Company name: Endor Labs | HQ Location: Palo Alto, California | Website | LinkedIn
-                </Typography>
-                <ul>
-                  <li>Salary: Rs. 20-40 lakhs per annum</li>
-                  <li>Experience: 2+ years</li>
-                  <li>Location: Bangalore</li>
-                  <li>Type: Full-time</li>
-                </ul>
-              </div>
-            </div>
-            <div>
-              <Button variant="contained" color="primary">View job</Button>
-            </div>
-            <div className="info-container poc-info-container">
-              <Typography variant="h6" style={{ marginTop: '10px' }}>Minimum Experience</Typography>
-              <Typography variant="h5">2 years</Typography>
-            </div>
-            <div className="status-container">
-              <div>
-                <Button variant="contained" color="primary">⚡ Easy Apply</Button>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+          </div>
+          <div className="poc-info-container">
+            <Typography
+              variant="h6"
+              style={{
+                marginTop: "10px",
+                fontSize: "13px",
+                fontWeight: 600,
+                letterSpacing: "1px",
+                marginBottom: "3px",
+                color: "#8b8b8b",
+              }}
+            >
+              Minimum Experience
+            </Typography>
+            <Typography
+              style={{ display: "block", fontSize: "14px", lineHeight: 1.5 }}
+              variant="h5"
+            >
+             {(data.minExp != 1 && data.minExp != null) ? data.minExp  + " years" : 1 +" year"} 
+            </Typography>
+          </div>
+          <div className="status-container">
+            <Button variant="contained" class="btn-status">
+              ⚡ Easy Apply
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
     </Box>
   );
 };

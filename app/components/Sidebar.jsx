@@ -19,9 +19,19 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
+import CurrencyRupeeOutlinedIcon from "@mui/icons-material/CurrencyRupeeOutlined";
+import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import PersonAddAltOutlinedIcon from "@mui/icons-material/PersonAddAltOutlined";
+import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 
 const drawerWidth = 240;
+const data = [
+    { name: "My applied jobs", icon: <PersonOutlineIcon /> },
+    {name :"Search jobs" , icon :<SearchOutlinedIcon/>},
+    {name :"Search salary" , icon :<CurrencyRupeeOutlinedIcon/>},
+    {name :"Ask for referral" , icon :<PersonAddAltOutlinedIcon/>}
 
+];
 const openedMixin = (theme) => ({
   width: drawerWidth,
   padding: "10px",
@@ -60,7 +70,7 @@ const AppBar = styled(MuiAppBar, {
 })(({ theme, open }) => ({
   zIndex: theme.zIndex.drawer + 1,
   borderRadius: `5px`,
-  backgroundColor:"#fff",
+  backgroundColor: "#fff",
   width: `calc(100% - ${101}px)`,
   transition: theme.transitions.create(["width", "margin"], {
     easing: theme.transitions.easing.sharp,
@@ -69,7 +79,7 @@ const AppBar = styled(MuiAppBar, {
   ...(open && {
     marginLeft: drawerWidth,
     borderRadius: `5px`,
-    backgroundColor:"#fff",
+    backgroundColor: "#fff",
     width: `calc(100% - ${drawerWidth + 20}px)`,
     transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
@@ -111,7 +121,6 @@ export default function MiniDrawer({ children }) {
       <AppBar position="fixed" open={open}>
         <Toolbar>
           <IconButton
-            
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
@@ -150,8 +159,8 @@ export default function MiniDrawer({ children }) {
         </DrawerHeader>
         <Divider />
         <List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: "block" }}>
+          {data.map((text, index) => (
+            <ListItem key={index} disablePadding sx={{ display: "block" }}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -166,38 +175,15 @@ export default function MiniDrawer({ children }) {
                     justifyContent: "center",
                   }}
                 >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                    {text.icon}
                 </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+                <ListItemText primary={text.name} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
           ))}
         </List>
         <Divider />
-        <List>
-          {["All mail", "Trash", "Spam"].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: "block" }}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? "initial" : "center",
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : "auto",
-                    justifyContent: "center",
-                  }}
-                >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
+      
       </Drawer>
       <Box
         component="main"
