@@ -24,7 +24,7 @@ const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
-  padding:"10px",
+  padding: "10px",
   transition: theme.transitions.create("width", {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen,
@@ -37,8 +37,8 @@ const closedMixin = (theme) => ({
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
-  borderRadius:"5px",
-  padding:"18px",
+  borderRadius: "5px",
+  padding: "18px",
   overflowX: "hidden",
   width: `calc(${theme.spacing(7)} + 1px)`,
   [theme.breakpoints.up("sm")]: {
@@ -47,9 +47,9 @@ const closedMixin = (theme) => ({
 });
 
 const DrawerHeader = styled("div")(({ theme }) => ({
-display:"flex",
-alignItems:"center",
-justifyContent:"space-between",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
   padding: theme.spacing(1, 1),
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
@@ -59,7 +59,7 @@ const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
   zIndex: theme.zIndex.drawer + 1,
-  borderRadius:`5px`,
+  borderRadius: `5px`,
   width: `calc(100% - ${101}px)`,
   transition: theme.transitions.create(["width", "margin"], {
     easing: theme.transitions.easing.sharp,
@@ -67,7 +67,7 @@ const AppBar = styled(MuiAppBar, {
   }),
   ...(open && {
     marginLeft: drawerWidth,
-    borderRadius:`5px`,
+    borderRadius: `5px`,
     width: `calc(100% - ${drawerWidth + 20}px)`,
     transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
@@ -92,7 +92,7 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-export default function MiniDrawer() {
+export default function MiniDrawer({ children }) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -114,28 +114,36 @@ export default function MiniDrawer() {
             onClick={handleDrawerOpen}
             edge="start"
             sx={{
-              
               ...(open && { display: "none" }),
             }}
           >
-                 <ChevronRightIcon />
+            <ChevronRightIcon />
           </IconButton>
-         
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
-            <div className="flex p-2">
-                   {open ?
-                      <img src={"https://jobs.weekday.works/_next/static/media/logo.268caeb2.png"} height={30} />:
-                   <img src={"https://jobs.weekday.works/_next/static/media/logo-small.08826abd.png"} width={50} height={50} />}
-            </div>
-         
+          <div className="flex p-2">
+            {open ? (
+              <img
+                src={
+                  "https://jobs.weekday.works/_next/static/media/logo.268caeb2.png"
+                }
+                height={30}
+              />
+            ) : (
+              <img
+                src={
+                  "https://jobs.weekday.works/_next/static/media/logo-small.08826abd.png"
+                }
+                width={50}
+                height={50}
+              />
+            )}
+          </div>
+
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction !== "rtl"&& open &&
-           
-              <ChevronLeftIcon />
-            }
+            {theme.direction !== "rtl" && open && <ChevronLeftIcon />}
           </IconButton>
         </DrawerHeader>
         <Divider />
@@ -189,6 +197,13 @@ export default function MiniDrawer() {
           ))}
         </List>
       </Drawer>
+      <Box
+        component="main"
+        sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}
+      >
+        <Toolbar />
+        {children}
+      </Box>
     </Box>
   );
 }

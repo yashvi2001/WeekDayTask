@@ -1,12 +1,12 @@
-import Image from "next/image";
 import SideBar from "./components/Sidebar";
-import JobCard from "./components/JobCard";
+import JobComponent from "./components/JobComponent";
 
 export default function Home() {
   return (
-    <>
-    <SideBar/>
-    <JobCard/>
-    </>
+    <div className="flex">
+    <SideBar>
+      <JobComponent/>
+    </SideBar>
+    </div>
   );
 }
