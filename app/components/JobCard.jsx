@@ -1,4 +1,3 @@
-// JobCard.js
 import React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -6,7 +5,15 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+
 const JobCard = ({ data }) => {
+  const router = useRouter();
+
+  const handleClick = (link) => {
+    router.push(link);
+  };
+
   return (
     <Box>
       <Card
@@ -17,7 +24,7 @@ const JobCard = ({ data }) => {
           position: "relative",
           borderRadius: "20px",
           padding: "5px",
-          margin:"0 auto"
+          margin: "0 auto",
         }}
       >
         <CardContent>
@@ -127,7 +134,7 @@ const JobCard = ({ data }) => {
                 <strong>About us</strong>
               </Typography>
               <Typography className="company-data">
-               {data.jobDetailsFromCompany}
+                {data.jobDetailsFromCompany}
               </Typography>
             </div>
           </div>
@@ -157,11 +164,17 @@ const JobCard = ({ data }) => {
               style={{ display: "block", fontSize: "14px", lineHeight: 1.5 }}
               variant="h5"
             >
-             {(data.minExp != 1 && data.minExp != null) ? data.minExp  + " years" : 1 +" year"} 
+              {data.minExp != 1 && data.minExp != null
+                ? data.minExp + " years"
+                : 1 + " year"}
             </Typography>
           </div>
           <div className="status-container">
-            <Button variant="contained" className="btn-status">
+            <Button
+              variant="contained"
+              className="btn-status"
+              onClick={() => handleClick(data.jdLink)}
+            >
               ⚡ Easy Apply
             </Button>
           </div>

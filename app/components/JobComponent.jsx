@@ -58,7 +58,7 @@ const JobComponent = () => {
         // Increase the limit by a certain amount
         setLimit(prevLimit => prevLimit + 10);
     };
-
+console.log(jobData)
     return (
         <Box>
             <Typography sx={customStyle}>
