@@ -5,7 +5,8 @@ import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
-const JobCard = () => {
+import Image from 'next/image';
+const JobCard = ({data}) => {
   return (
     <Box>
         <Card>
@@ -15,17 +16,22 @@ const JobCard = () => {
             </Typography>
             <div>
               <div className="info-container">
+                <div>
+              <Image  width={50} height={50} src={data.logoUrl} alt="logo" />
+              </div>
+              <div>
                 <Typography variant="h5">
-                  Endor
+             {data.companyName}
                 </Typography>
                 <Typography variant="h4" component="h2">
-                  Backend Engineer
+                {data.jobRole && data.jobRole.charAt(0).toUpperCase() + data.jobRole.slice(1)} Engineer
                 </Typography>
                 <Typography variant="subtitle1" className="cards-sub-text">
-                  Bangalore
+                 {data.location  && data.location.charAt(0).toUpperCase() + data.location.slice(1)}
                 </Typography>
+                </div>
               </div>
-              <img src="https://storage.googleapis.com/weekday-assets/airtableAttachment_1713846224941_fab2j.jpg" alt="logo" />
+         
             </div>
             <Typography variant="body2" className="card-salary">
               Estimated Salary: ₹20 - 40 LPA <span aria-label="Offered salary range">✅</span>
