@@ -125,6 +125,7 @@ const JobComponent = () => {
             minBasePayOptions={minBasePay}
             minExpOptions={minExp}
             filteredJobData={filteredJobData}
+            jobData = {jobData}
             setFilteredJobData={setFilteredJobData}
           />{" "}
         </Box>

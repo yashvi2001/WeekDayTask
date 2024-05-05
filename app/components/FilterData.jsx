@@ -7,7 +7,7 @@ const FilterData = ({
   minBasePayOptions,
   minExpOptions,
   filteredJobData,
-  setfilteredJobData = () =>{}
+  setFilteredJobData = () =>{}
 }) => {
   const [selectedLocation, setSelectedLocation] = useState("");
   const [selectedRole, setSelectedRole] = useState("");
@@ -21,10 +21,11 @@ const FilterData = ({
   }, [selectedLocation, selectedRole, selectedMinBasePay, selectedMinExp]);
 
   const filterJobs = () => {
-    let filteredData =[ ...filteredJobData]
-  
+    var filteredData =[ ...filteredJobData]
+ console.log(filteredData)
     if (selectedLocation) {
       filteredData = filteredData.filter((job) => job.location == selectedLocation);
+      console.log(filteredData)
     }
   
     if (selectedRole) {
@@ -38,7 +39,8 @@ const FilterData = ({
     if (selectedMinExp) {
       filteredData = filteredData.filter((job) => job.minExp >= selectedMinExp);
     }
-    setfilteredJobData(filteredData);
+    console.log(filteredData)
+    setFilteredJobData(filteredData);
   };
   
 
