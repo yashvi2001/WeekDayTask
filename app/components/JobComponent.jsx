@@ -31,6 +31,12 @@ const JobComponent = () => {
   const [jobData, setJobData] = useState(null);
   const [limit, setLimit] = useState(10); // Initial limit
   const [loading, setLoading] = useState(false);
+  const [filteredJobData, setfilteredJobData] = useState(null);
+  const [location, setLoacation] = useState([]);
+  const [jobType, setJobType] = useState([]);
+  const [minExp, setMinExp] = useState([]);
+  const [role, setRole] = useState([]);
+  const [minBasePay, setMinBasePay] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -53,7 +59,8 @@ const JobComponent = () => {
         const data = await response.json();
         console.log(response);
         if (response.status == 200) {
-          setJobData(data);
+          setJobData(data?.jdList);
+          setfilteredJobData(data?.jdList);
         } else {
           setJobData([]);
         }
@@ -70,7 +77,25 @@ const JobComponent = () => {
     setLoading(true);
     setLimit((prevLimit) => prevLimit + 10);
   };
-  console.log(jobData);
+
+  useEffect(() => {
+    console.log(jobData);
+    const locations = [
+      ...new Set(jobData?.map((data) => data?.location)),
+    ];
+    const jobRoles = [...new Set(jobData?.map((data) => data?.jobRole))];
+    const minExperience = [
+      ...new Set(jobData?.map((data) => data?.minExp ?? 0)),
+    ];
+    const minBasePayData = [
+      ...new Set(jobData?.map((data) => data?.minJdSalary ?? 0))
+    ]
+
+    setLoacation(locations);
+    setRole(jobRoles);
+    setMinExp(minExperience.sort((a, b) => a - b));
+    setMinBasePay(minBasePayData.sort((a, b) => a - b));
+  }, [jobData]);
   return (
     <Box>
       <Typography sx={customStyle}>
@@ -81,51 +106,63 @@ const JobComponent = () => {
       <Box sx={containerStyle}>
         <TabsComponent />
       </Box>
-      {/* <FilterData/> */}
-      {jobData ? (
-        <Box sx={{ padding: "20px" }}>
-          <Grid container spacing={10}>
-            {jobData?.jdList?.map((job) => (
-              <Grid item xs={12} sm={6} md={4} key={job.jdUid}>
-                <JobCard data={job} />
-              </Grid>
-            ))}
-          </Grid>
-          {loading ? (
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                padding: "50px",
-              }}
-            >
-              <CircularProgress />
-            </Box>
-          ) : (
-            <Box
-              sx={{
-                padding: "20px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Button
-                sx={{ backgroundColor: "#fff", color: "#000" }}
-                onClick={handleLoadMore}
+      <Box>
+        <Box sx={{ marginBottom: "20px", marginTop: "10px" }}>
+          {" "}
+          <FilterData
+            locationOptions={location}
+            roleOptions={role}
+            minBasePayOptions={minBasePay}
+            minExpOptions={minExp}
+            filteredJobData={filteredJobData}
+            setfilteredJobData={setfilteredJobData}
+          />{" "}
+        </Box>
+        {filteredJobData ? (
+          <Box sx={{ margin: "20px" }}>
+            <Grid container spacing={10}>
+              {filteredJobData?.map((job) => (
+                <Grid item xs={12} sm={6} md={4} key={job.jdUid}>
+                  <JobCard data={job} />
+                </Grid>
+              ))}
+            </Grid>
+            {loading ? (
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  padding: "50px",
+                }}
               >
-                <RefreshOutlinedIcon /> Load More
-              </Button>
-            </Box>
-          )}
-        </Box>
-      ) : (
-        <Box
-          sx={{ display: "flex", justifyContent: "center", padding: "50px" }}
-        >
-          <CircularProgress />
-        </Box>
-      )}
+                <CircularProgress />
+              </Box>
+            ) : (
+              <Box
+                sx={{
+                  padding: "20px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Button
+                  sx={{ backgroundColor: "#fff", color: "#000" }}
+                  onClick={handleLoadMore}
+                >
+                  <RefreshOutlinedIcon /> Load More
+                </Button>
+              </Box>
+            )}
+          </Box>
+        ) : (
+          <Box
+            sx={{ display: "flex", justifyContent: "center", padding: "50px" }}
+          >
+            <CircularProgress />
+          </Box>
+        )}
+      </Box>
     </Box>
   );
 };

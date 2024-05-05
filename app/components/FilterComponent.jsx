@@ -1,29 +1,29 @@
-import React from 'react';
+import React from "react";
+import { Select, MenuItem } from "@mui/material";
 
-const FilterSelect = ({ options, selectedOption, setSelectedOption }) => {
-
+const FilterSelect = ({
+  options,
+  selectedOption,
+  setSelectedOption,
+}) => {
   const handleChange = (event) => {
-    setSelectedOption(event.target.value);
-  };
-
-  const renderOptions = (category) => {
-    const categoryName = Object.keys(category)[0]; 
-    const categoryOptions = category[categoryName]; 
-    return categoryOptions.map((option, index) => ( 
-      <option key={index} value={option}>{option}</option>
-    ));
+    const selectedValue = event.target.value;
+    setSelectedOption(selectedValue);
   };
 
   return (
-    <div>
-      <select value={selectedOption} onChange={handleChange}>
-        <option value="">Select an option</option>
-        {options.map((category, index) => (
-          <optgroup key={index} label={Object.keys(category)[0]}>
-            {renderOptions(category)}
-          </optgroup>
+    <div className="p-2 ml-5">
+      <Select
+        sx={{ width: "150px", height: "40px", marginLeft: "20px" }}
+        value={selectedOption}
+        onChange={handleChange}
+      >
+        {options.map((option, index) => (
+          <MenuItem key={index} value={option}>
+            {option}
+          </MenuItem>
         ))}
-      </select>
+      </Select>
     </div>
   );
 };

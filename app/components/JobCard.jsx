@@ -166,7 +166,7 @@ const JobCard = ({ data }) => {
             >
               {data.minExp != 1 && data.minExp != null
                 ? data.minExp + " years"
-                : 1 + " year"}
+                : (data.minExp == 1 ? 1:0 )+" year" }
             </Typography>
           </div>
           <div className="status-container">
