@@ -38,7 +38,6 @@ const FilterData = ({
     if (selectedMinExp) {
       filteredData = filteredData.filter((job) => job.minExp >= selectedMinExp);
     }
-    console.log(filteredData);
     setfilteredJobData(filteredData);
   };
   

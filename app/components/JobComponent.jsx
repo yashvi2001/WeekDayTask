@@ -57,7 +57,6 @@ const JobComponent = () => {
           requestOptions
         );
         const data = await response.json();
-        console.log(response);
         if (response.status == 200) {
           setJobData(data?.jdList);
           setfilteredJobData(data?.jdList);
@@ -79,7 +78,6 @@ const JobComponent = () => {
   };
 
   useEffect(() => {
-    console.log(jobData);
     const locations = [
       ...new Set(jobData?.map((data) => data?.location)),
     ];
