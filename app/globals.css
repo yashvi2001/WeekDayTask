@@ -15,8 +15,9 @@ p {
   justify-content: center;
   align-items: center;
   position: relative;
-  top: -10px;
-  backdrop-filter: blur(100px);
+  top: 1px;
+  height: 10px;
+  backdrop-filter: blur(2px);
 }
 .status-container {
   width: 100%;
