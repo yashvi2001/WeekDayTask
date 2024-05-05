@@ -1,12 +1,11 @@
-"use client";
-import React, { useState, useEffect } from "react";
+"use client"
+import React, { useState, useEffect, useRef } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import TabsComponent from "./TabsComponent";
 import JobCard from "./JobCard";
-import { Button, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 import FilterData from "./FilterData";
-import RefreshOutlinedIcon from "@mui/icons-material/RefreshOutlined";
 import CircularProgress from "@mui/material/CircularProgress";
 
 const JobComponent = () => {
@@ -28,18 +27,23 @@ const JobComponent = () => {
     alignItems: "center",
   };
 
-  const [jobData, setJobData] = useState(null);
-  const [limit, setLimit] = useState(10); // Initial limit
+  const [jobData, setJobData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [filteredJobData, setfilteredJobData] = useState(null);
-  const [location, setLoacation] = useState([]);
+  const [filteredJobData, setFilteredJobData] = useState([]);
+  const [location, setLocation] = useState([]);
   const [jobType, setJobType] = useState([]);
   const [minExp, setMinExp] = useState([]);
   const [role, setRole] = useState([]);
   const [minBasePay, setMinBasePay] = useState([]);
+  const [limit, setLimit] = useState(10);
+
+  const observer = useRef();
+
+  const lastJobCardRef = useRef();
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       try {
         const body = JSON.stringify({
           limit: limit,
@@ -57,43 +61,51 @@ const JobComponent = () => {
           requestOptions
         );
         const data = await response.json();
-        if (response.status == 200) {
+        if (response.ok) {
           setJobData(data?.jdList);
-          setfilteredJobData(data?.jdList);
-        } else {
-          setJobData([]);
+          setFilteredJobData(data?.jdList);
         }
         setLoading(false);
       } catch (error) {
         console.error(error);
+        setLoading(false);
       }
     };
-    fetchData();
-  }, [limit]); // Fetch data when limit changes
 
-  const handleLoadMore = () => {
-    // Increase the limit by a certain amount
-    setLoading(true);
-    setLimit((prevLimit) => prevLimit + 10);
-  };
+    fetchData();
+  }, [limit]);
 
   useEffect(() => {
     const locations = [
-      ...new Set(jobData?.map((data) => data?.location)),
+      ...new Set(jobData.map((data) => data.location)),
     ];
-    const jobRoles = [...new Set(jobData?.map((data) => data?.jobRole))];
+    const jobRoles = [...new Set(jobData.map((data) => data.jobRole))];
     const minExperience = [
-      ...new Set(jobData?.map((data) => data?.minExp ?? 0)),
+      ...new Set(jobData.map((data) => data.minExp ?? 0)),
     ];
     const minBasePayData = [
-      ...new Set(jobData?.map((data) => data?.minJdSalary ?? 0))
-    ]
+      ...new Set(jobData.map((data) => data.minJdSalary ?? 0)),
+    ];
 
-    setLoacation(locations);
+    setLocation(locations);
     setRole(jobRoles);
     setMinExp(minExperience.sort((a, b) => a - b));
     setMinBasePay(minBasePayData.sort((a, b) => a - b));
   }, [jobData]);
+
+  useEffect(() => {
+    if (loading) return; 
+    if (!lastJobCardRef.current) return;
+    const observerCallback = (entries) => {
+      if (entries[0].isIntersecting) {
+        setLimit((prevLimit) => prevLimit + 10);
+      }
+    };
+    const newObserver = new IntersectionObserver(observerCallback);
+    newObserver.observe(lastJobCardRef.current);
+    return () => newObserver.disconnect();
+  }, [loading]); 
+
   return (
     <Box>
       <Typography sx={customStyle}>
@@ -113,56 +125,32 @@ const JobComponent = () => {
             minBasePayOptions={minBasePay}
             minExpOptions={minExp}
             filteredJobData={filteredJobData}
-            setfilteredJobData={setfilteredJobData}
+            setFilteredJobData={setFilteredJobData}
           />{" "}
         </Box>
-        {filteredJobData ? (
-          <Box sx={{ margin: "20px" }}>
-            <Grid container spacing={10}>
-              {filteredJobData?.map((job) => (
-                <Grid item xs={12} sm={6} md={4} key={job.jdUid}>
-                  <JobCard data={job} />
-                </Grid>
-              ))}
-            </Grid>
-            {loading ? (
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  padding: "50px",
-                }}
-              >
-                <CircularProgress />
-              </Box>
-            ) : (
-              <Box
-                sx={{
-                
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  position:"relative",
-                  top:"100px"
-                  
-                }}
-              >
-                <Button
-                  sx={{ backgroundColor: "#fff", color: "#000" }}
-                  onClick={handleLoadMore}
-                >
-                  <RefreshOutlinedIcon /> Load More
-                </Button>
-              </Box>
-            )}
-          </Box>
-        ) : (
-          <Box
-            sx={{ display: "flex", justifyContent: "center", padding: "50px" }}
-          >
-            <CircularProgress />
-          </Box>
-        )}
+        <Box sx={{ margin: "20px" }}>
+          <Grid container spacing={10}>
+            {filteredJobData.map((job, index) => (
+              <Grid item xs={12} sm={6} md={4} key={job.jdUid}>
+                {index === filteredJobData.length - 1 ? (
+                  <div ref={lastJobCardRef}></div>
+                ) : null}
+                <JobCard data={job} />
+              </Grid>
+            ))}
+          </Grid>
+          {loading && (
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                padding: "50px",
+              }}
+            >
+              <CircularProgress />
+            </Box>
+          )}
+        </Box>
       </Box>
     </Box>
   );
