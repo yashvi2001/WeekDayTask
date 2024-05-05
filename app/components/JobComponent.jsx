@@ -138,10 +138,13 @@ const JobComponent = () => {
             ) : (
               <Box
                 sx={{
-                  padding: "20px",
+                
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
+                  position:"relative",
+                  top:"100px"
+                  
                 }}
               >
                 <Button
