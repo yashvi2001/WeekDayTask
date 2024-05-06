@@ -1,3 +1,4 @@
+
 "use client"
 import React, { useState, useEffect, useRef } from "react";
 import Box from "@mui/material/Box";
@@ -36,6 +37,10 @@ const JobComponent = () => {
   const [role, setRole] = useState([]);
   const [minBasePay, setMinBasePay] = useState([]);
   const [limit, setLimit] = useState(10);
+  const [selectedLocation, setSelectedLocation] = useState("");
+  const [selectedRole, setSelectedRole] = useState("");
+  const [selectedMinBasePay, setSelectedMinBasePay] = useState("");
+  const [selectedMinExp, setSelectedMinExp] = useState("");
 
   const observer = useRef();
 
@@ -63,7 +68,7 @@ const JobComponent = () => {
         const data = await response.json();
         if (response.ok) {
           setJobData(data?.jdList);
-          setFilteredJobData(data?.jdList);
+          filterJobs(data?.jdList); // Filter initial data
         }
         setLoading(false);
       } catch (error) {
@@ -93,6 +98,32 @@ const JobComponent = () => {
     setMinBasePay(minBasePayData.sort((a, b) => a - b));
   }, [jobData]);
 
+
+  useEffect(() => {
+    filterJobs(jobData); // Apply filters whenever jobData changes
+  }, [jobData, selectedLocation, selectedRole, selectedMinBasePay, selectedMinExp]);
+
+  const filterJobs = (data) => {
+    let filteredData = [...data];
+
+    if (selectedLocation) {
+      filteredData = filteredData.filter((job) => job.location === selectedLocation);
+    }
+
+    if (selectedRole) {
+      filteredData = filteredData.filter((job) => job.jobRole === selectedRole);
+    }
+
+    if (selectedMinBasePay) {
+      filteredData = filteredData.filter((job) => job.minJdSalary >= selectedMinBasePay);
+    }
+
+    if (selectedMinExp) {
+      filteredData = filteredData.filter((job) => job.minExp >= selectedMinExp);
+    }
+
+    setFilteredJobData(filteredData);
+  };
   useEffect(() => {
     if (loading) return; 
     if (!lastJobCardRef.current) return;
@@ -104,7 +135,8 @@ const JobComponent = () => {
     const newObserver = new IntersectionObserver(observerCallback);
     newObserver.observe(lastJobCardRef.current);
     return () => newObserver.disconnect();
-  }, [loading]); 
+  }, [loading , filteredJobData]); 
+  
 
   return (
     <Box>
@@ -125,8 +157,15 @@ const JobComponent = () => {
             minBasePayOptions={minBasePay}
             minExpOptions={minExp}
             filteredJobData={filteredJobData}
-            jobData = {jobData}
             setFilteredJobData={setFilteredJobData}
+            setSelectedLocation={setSelectedLocation}
+            setSelectedRole={setSelectedRole}
+            setSelectedMinBasePay={setSelectedMinBasePay}
+            setSelectedMinExp={setSelectedMinExp}
+            selectedLocation= {selectedLocation}
+            selectedRole = {selectedRole}
+            selectedMinBasePay = {selectedMinBasePay}
+            selectedMinExp = {selectedMinExp}
           />{" "}
         </Box>
         <Box sx={{ margin: "20px" }}>
