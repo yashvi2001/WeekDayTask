@@ -57,10 +57,3 @@ p {
   text-transform: none;
   font-size: 16px;
 }
-.company-data {
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 10;
-  font-size: 14px;
-}

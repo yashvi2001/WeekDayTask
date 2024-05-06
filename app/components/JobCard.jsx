@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
@@ -9,9 +9,14 @@ import { useRouter } from "next/navigation";
 
 const JobCard = ({ data }) => {
   const router = useRouter();
+  const [expanded, setExpanded] = useState(false);
 
   const handleClick = (link) => {
     router.push(link);
+  };
+
+  const toggleExpand = () => {
+    setExpanded(!expanded);
   };
 
   return (
@@ -134,7 +139,16 @@ const JobCard = ({ data }) => {
               <Typography variant="body1" sx={{ fontSize: "14px" }}>
                 <strong>About us</strong>
               </Typography>
-              <Typography className="company-data">
+              <Typography
+                className="company-data"
+                style={{
+                  overflow: expanded ? "visible" : "hidden",
+                  display: "-webkit-box",
+                  WebkitBoxOrient: "vertical",
+                  WebkitLineClamp: expanded ? "unset" : "10",
+                  fontSize: "14px",
+                }}
+              >
                 {data.jobDetailsFromCompany}
               </Typography>
             </div>
@@ -142,9 +156,10 @@ const JobCard = ({ data }) => {
           <div className="view-job-cont">
             <Typography
               className="v-j-text"
-              sx={{ fontSize: "14px", color: "#202fed" }}
+              sx={{ fontSize: "14px", color: "#202fed", cursor: "pointer" }}
+              onClick={toggleExpand}
             >
-              View job
+              {expanded ? "Hide Details" : "View job"}
             </Typography>
           </div>
           <div className="poc-info-container">

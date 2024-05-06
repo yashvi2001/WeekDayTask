@@ -17,7 +17,7 @@ const FilterSelect = ({
       <FormControl fullWidth>
         <InputLabel
           sx={{ fontSize: "12px", marginTop: "-5px", marginLeft: "20px" }}
-          shrink
+          shrink = "true"
           htmlFor="uncontrolled-native"
           id="demo-simple-select-label"
         >

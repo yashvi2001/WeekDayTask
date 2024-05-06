@@ -56,7 +56,7 @@ const FilterData = ({
       <FormControl fullWidth>
         <InputLabel
           sx={{ fontSize: "12px", marginTop: "-5px", marginLeft: "20px" }}
-          shrink
+          shrink = "true"
           htmlFor="uncontrolled-native"
           id="demo-simple-select-label"
         >
@@ -65,7 +65,7 @@ const FilterData = ({
         <TextField
           value={searchStr}
           onChange={(e) => setSearchStr(e.target.value)}
-          shrink
+          shrink = "true"
           id="outlined-basic"
           variant="outlined"
           size="small"
