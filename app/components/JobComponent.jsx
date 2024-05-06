@@ -41,8 +41,9 @@ const JobComponent = () => {
   const [selectedRole, setSelectedRole] = useState("");
   const [selectedMinBasePay, setSelectedMinBasePay] = useState("");
   const [selectedMinExp, setSelectedMinExp] = useState("");
+  const [searchStr , setSearchStr] = useState("")
 
-  const observer = useRef();
+  
 
   const lastJobCardRef = useRef();
 
@@ -101,11 +102,13 @@ const JobComponent = () => {
 
   useEffect(() => {
     filterJobs(jobData); // Apply filters whenever jobData changes
-  }, [jobData, selectedLocation, selectedRole, selectedMinBasePay, selectedMinExp]);
+  }, [jobData, selectedLocation, selectedRole, selectedMinBasePay, selectedMinExp,searchStr]);
 
   const filterJobs = (data) => {
     let filteredData = [...data];
-
+    if (searchStr) {
+      filteredData = filteredData.filter((job) => job.companyName.toLowerCase().includes(searchStr.toLowerCase()));
+    }
     if (selectedLocation) {
       filteredData = filteredData.filter((job) => job.location === selectedLocation);
     }
@@ -166,6 +169,8 @@ const JobComponent = () => {
             selectedRole = {selectedRole}
             selectedMinBasePay = {selectedMinBasePay}
             selectedMinExp = {selectedMinExp}
+            searchStr= {searchStr}
+            setSearchStr = {setSearchStr}
           />{" "}
         </Box>
         <Box sx={{ margin: "20px" }}>
