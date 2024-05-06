@@ -17,7 +17,7 @@ const JobComponent = () => {
     padding: "6px 20px",
     borderRadius: "20px",
     boxShadow: "rgba(0, 0, 0, 0.25) 0px 4px 4px 0px",
-    fontSize: "1rem",
+    fontSize: "15px",
     fontWeight: 400,
     display: "block",
   };
@@ -146,7 +146,7 @@ const JobComponent = () => {
       <Typography sx={customStyle}>
         We, at Weekday, are creating a go-to hub for uncovering the real issues
         candidates should be aware of before joining a company.{" "}
-        <span>Access 150+ company reviews here</span>
+        <span style={{fontWeight:"semi-bold" , fontSize:"14px"}}>Access 150+ company reviews here</span>
       </Typography>
       <Box sx={containerStyle}>
         <TabsComponent />
