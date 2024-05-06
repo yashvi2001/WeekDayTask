@@ -12,7 +12,7 @@ This project implements an infinite scroll feature for displaying job cards, alo
 
 ## Technologies Used
 
-- **React**: The project is built using the React library, providing a component-based architecture for building user interfaces.
+- **Next**: The project is built using the NextJS (React Framework)library, providing a component-based architecture for building user interfaces.
 
 - **Material-UI**: Material-UI is used for designing and styling the user interface components, ensuring a modern and visually appealing look and feel.
 
