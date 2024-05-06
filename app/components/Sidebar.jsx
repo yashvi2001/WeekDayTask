@@ -71,7 +71,10 @@ const AppBar = styled(MuiAppBar, {
   zIndex: theme.zIndex.drawer + 1,
   borderRadius: `5px`,
   backgroundColor: "#fff",
-  width: `calc(100% - ${101}px)`,
+  width: `calc(100%px)`,
+  [theme.breakpoints.up("md")]: {
+    width: `calc(100% - ${101}px)`,
+  },
   transition: theme.transitions.create(["width", "margin"], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
@@ -80,7 +83,10 @@ const AppBar = styled(MuiAppBar, {
     marginLeft: drawerWidth,
     borderRadius: `5px`,
     backgroundColor: "#fff",
-    width: `calc(100% - ${drawerWidth + 20}px)`,
+    width: `calc(100%px)`,
+    [theme.breakpoints.up("md")]: {
+      width: `calc(100% - ${drawerWidth + 20}px)`,
+    },
     transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -93,6 +99,10 @@ const Drawer = styled(MuiDrawer, {
 })(({ theme, open }) => ({
   width: drawerWidth,
   flexShrink: 0,
+  display: "none" ,
+  [theme.breakpoints.up("md")]: {
+    display:"block"
+  },
   whiteSpace: "nowrap",
   ...(open && {
     ...openedMixin(theme),
@@ -124,7 +134,7 @@ export default function MiniDrawer({ children }) {
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
-            sx={{
+            sx={{ display:{sm:"none" , xs:"none", lg:"block"},
               ...(open && { display: "none" }),
             }}
           >
