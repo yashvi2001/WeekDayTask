@@ -116,7 +116,7 @@ const JobCard = ({ data }) => {
               color: "rgb(77, 89, 106)",
             }}
           >
-            Estimated Salary: ₹20 - 40 LPA{" "}
+            Estimated Salary: ₹{data?.minJdSalary ?? "10"} - {data?.maxJdSalary ?? "100"} LPA{" "}
             <span aria-label="Offered salary range">✅</span>
           </Typography>
           <div className="jd-link-container">
