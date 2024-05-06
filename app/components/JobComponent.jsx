@@ -1,5 +1,4 @@
-
-"use client"
+"use client";
 import React, { useState, useEffect, useRef } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -41,9 +40,7 @@ const JobComponent = () => {
   const [selectedRole, setSelectedRole] = useState("");
   const [selectedMinBasePay, setSelectedMinBasePay] = useState("");
   const [selectedMinExp, setSelectedMinExp] = useState("");
-  const [searchStr , setSearchStr] = useState("")
-
-  
+  const [searchStr, setSearchStr] = useState("");
 
   const lastJobCardRef = useRef();
 
@@ -82,13 +79,9 @@ const JobComponent = () => {
   }, [limit]);
 
   useEffect(() => {
-    const locations = [
-      ...new Set(jobData.map((data) => data.location)),
-    ];
+    const locations = [...new Set(jobData.map((data) => data.location))];
     const jobRoles = [...new Set(jobData.map((data) => data.jobRole))];
-    const minExperience = [
-      ...new Set(jobData.map((data) => data.minExp ?? 0)),
-    ];
+    const minExperience = [...new Set(jobData.map((data) => data.minExp ?? 0))];
     const minBasePayData = [
       ...new Set(jobData.map((data) => data.minJdSalary ?? 0)),
     ];
@@ -99,18 +92,28 @@ const JobComponent = () => {
     setMinBasePay(minBasePayData.sort((a, b) => a - b));
   }, [jobData]);
 
-
   useEffect(() => {
     filterJobs(jobData); // Apply filters whenever jobData changes
-  }, [jobData, selectedLocation, selectedRole, selectedMinBasePay, selectedMinExp,searchStr]);
+  }, [
+    jobData,
+    selectedLocation,
+    selectedRole,
+    selectedMinBasePay,
+    selectedMinExp,
+    searchStr,
+  ]);
 
   const filterJobs = (data) => {
     let filteredData = [...data];
     if (searchStr) {
-      filteredData = filteredData.filter((job) => job.companyName.toLowerCase().includes(searchStr.toLowerCase()));
+      filteredData = filteredData.filter((job) =>
+        job.companyName.toLowerCase().includes(searchStr.toLowerCase())
+      );
     }
     if (selectedLocation) {
-      filteredData = filteredData.filter((job) => job.location === selectedLocation);
+      filteredData = filteredData.filter(
+        (job) => job.location === selectedLocation
+      );
     }
 
     if (selectedRole) {
@@ -118,7 +121,9 @@ const JobComponent = () => {
     }
 
     if (selectedMinBasePay) {
-      filteredData = filteredData.filter((job) => job.minJdSalary >= selectedMinBasePay);
+      filteredData = filteredData.filter(
+        (job) => job.minJdSalary >= selectedMinBasePay
+      );
     }
 
     if (selectedMinExp) {
@@ -128,7 +133,7 @@ const JobComponent = () => {
     setFilteredJobData(filteredData);
   };
   useEffect(() => {
-    if (loading) return; 
+    if (loading) return;
     if (!lastJobCardRef.current) return;
     const observerCallback = (entries) => {
       if (entries[0].isIntersecting) {
@@ -138,15 +143,16 @@ const JobComponent = () => {
     const newObserver = new IntersectionObserver(observerCallback);
     newObserver.observe(lastJobCardRef.current);
     return () => newObserver.disconnect();
-  }, [loading , filteredJobData]); 
-  
+  }, [loading, filteredJobData]);
 
   return (
     <Box>
       <Typography sx={customStyle}>
         We, at Weekday, are creating a go-to hub for uncovering the real issues
         candidates should be aware of before joining a company.{" "}
-        <span style={{fontWeight:"bold" , fontSize:"14px"}}>Access 150+ company reviews here</span>
+        <span style={{ fontWeight: "bold", fontSize: "14px" }}>
+          Access 150+ company reviews here
+        </span>
       </Typography>
       <Box sx={containerStyle}>
         <TabsComponent />
@@ -165,12 +171,12 @@ const JobComponent = () => {
             setSelectedRole={setSelectedRole}
             setSelectedMinBasePay={setSelectedMinBasePay}
             setSelectedMinExp={setSelectedMinExp}
-            selectedLocation= {selectedLocation}
-            selectedRole = {selectedRole}
-            selectedMinBasePay = {selectedMinBasePay}
-            selectedMinExp = {selectedMinExp}
-            searchStr= {searchStr}
-            setSearchStr = {setSearchStr}
+            selectedLocation={selectedLocation}
+            selectedRole={selectedRole}
+            selectedMinBasePay={selectedMinBasePay}
+            selectedMinExp={selectedMinExp}
+            searchStr={searchStr}
+            setSearchStr={setSearchStr}
           />{" "}
         </Box>
         <Box sx={{ margin: "20px" }}>

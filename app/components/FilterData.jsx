@@ -2,15 +2,13 @@
 
 import React from "react";
 import FilterSelect from "./FilterComponent";
-import { TextField , FormControl , InputLabel} from "@mui/material";
+import { TextField, FormControl, InputLabel } from "@mui/material";
 
 const FilterData = ({
   locationOptions,
   roleOptions,
   minBasePayOptions,
   minExpOptions,
-  filteredJobData,
-  setFilteredJobData,
   setSelectedLocation,
   setSelectedRole,
   setSelectedMinBasePay,
@@ -20,11 +18,17 @@ const FilterData = ({
   selectedMinExp,
   selectedRole,
   searchStr,
-  setSearchStr
+  setSearchStr,
 }) => {
-
   return (
-    <div style={{ display: "flex", flexDirection:"row", flexWrap:"wrap",marginTop:"20px" }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        flexWrap: "wrap",
+        marginTop: "20px",
+      }}
+    >
       <FilterSelect
         options={locationOptions}
         label={"Location"}
@@ -49,10 +53,30 @@ const FilterData = ({
         selectedOption={selectedMinExp}
         setSelectedOption={setSelectedMinExp}
       />
-        <FormControl fullWidth>
-  <InputLabel sx={{fontSize:"12px" , marginTop:"-5px", marginLeft:"20px"}} shrink  htmlFor="uncontrolled-native" id="demo-simple-select-label">Company Name</InputLabel>
-      <TextField value={searchStr}  onChange={(e) => setSearchStr(e.target.value)} shrink id="outlined-basic" variant="outlined" size = "small"        sx={{ width: "150px", height: "40px", marginLeft: "20px" , marginBottom:"20px"}}  />
-</FormControl>
+      <FormControl fullWidth>
+        <InputLabel
+          sx={{ fontSize: "12px", marginTop: "-5px", marginLeft: "20px" }}
+          shrink
+          htmlFor="uncontrolled-native"
+          id="demo-simple-select-label"
+        >
+          Company Name
+        </InputLabel>
+        <TextField
+          value={searchStr}
+          onChange={(e) => setSearchStr(e.target.value)}
+          shrink
+          id="outlined-basic"
+          variant="outlined"
+          size="small"
+          sx={{
+            width: "150px",
+            height: "40px",
+            marginLeft: "20px",
+            marginBottom: "20px",
+          }}
+        />
+      </FormControl>
     </div>
   );
 };

@@ -6,19 +6,14 @@ import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
-import CssBaseline from "@mui/material/CssBaseline";
-import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
+import IconButton from "@mui/material/IconButton";;
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
+import ListItemText from "@mui/material/ListItemText";;
 import CurrencyRupeeOutlinedIcon from "@mui/icons-material/CurrencyRupeeOutlined";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import PersonAddAltOutlinedIcon from "@mui/icons-material/PersonAddAltOutlined";
@@ -26,11 +21,10 @@ import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 
 const drawerWidth = 240;
 const data = [
-    { name: "My applied jobs", icon: <PersonOutlineIcon /> },
-    {name :"Search jobs" , icon :<SearchOutlinedIcon/>},
-    {name :"Search salary" , icon :<CurrencyRupeeOutlinedIcon/>},
-    {name :"Ask for referral" , icon :<PersonAddAltOutlinedIcon/>}
-
+  { name: "My applied jobs", icon: <PersonOutlineIcon /> },
+  { name: "Search jobs", icon: <SearchOutlinedIcon /> },
+  { name: "Search salary", icon: <CurrencyRupeeOutlinedIcon /> },
+  { name: "Ask for referral", icon: <PersonAddAltOutlinedIcon /> },
 ];
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -99,9 +93,9 @@ const Drawer = styled(MuiDrawer, {
 })(({ theme, open }) => ({
   width: drawerWidth,
   flexShrink: 0,
-  display: "none" ,
+  display: "none",
   [theme.breakpoints.up("md")]: {
-    display:"block"
+    display: "block",
   },
   whiteSpace: "nowrap",
   ...(open && {
@@ -134,7 +128,8 @@ export default function MiniDrawer({ children }) {
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
-            sx={{ display:{sm:"none" , xs:"none", lg:"block"},
+            sx={{
+              display: { sm: "none", xs: "none", lg: "block" },
               ...(open && { display: "none" }),
             }}
           >
@@ -185,15 +180,17 @@ export default function MiniDrawer({ children }) {
                     justifyContent: "center",
                   }}
                 >
-                    {text.icon}
+                  {text.icon}
                 </ListItemIcon>
-                <ListItemText primary={text.name} sx={{ opacity: open ? 1 : 0 }} />
+                <ListItemText
+                  primary={text.name}
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
               </ListItemButton>
             </ListItem>
           ))}
         </List>
         <Divider />
-      
       </Drawer>
       <Box
         component="main"

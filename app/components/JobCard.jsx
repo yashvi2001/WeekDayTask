@@ -116,7 +116,8 @@ const JobCard = ({ data }) => {
               color: "rgb(77, 89, 106)",
             }}
           >
-            Estimated Salary: ₹{data?.minJdSalary ?? "10"} - {data?.maxJdSalary ?? "100"} LPA{" "}
+            Estimated Salary: ₹{data?.minJdSalary ?? "10"} -{" "}
+            {data?.maxJdSalary ?? "100"} LPA{" "}
             <span aria-label="Offered salary range">✅</span>
           </Typography>
           <div className="jd-link-container">
@@ -166,7 +167,7 @@ const JobCard = ({ data }) => {
             >
               {data.minExp != 1 && data.minExp != null
                 ? data.minExp + " years"
-                : (data.minExp == 1 ? 1:0 )+" year" }
+                : (data.minExp == 1 ? 1 : 0) + " year"}
             </Typography>
           </div>
           <div className="status-container">
