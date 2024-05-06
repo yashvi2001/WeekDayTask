@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Infinity Scroll Job Cards
+
+This project implements an infinite scroll feature for displaying job cards, along with filtering options to refine the displayed job listings. The user can scroll through an endless list of job cards, and apply filters based on criteria such as job title, location, or category.
+
+## Features
+
+- **Infinite Scroll**: The job listings are loaded dynamically as the user scrolls down the page, providing a seamless browsing experience without the need for pagination.
+  
+- **Filtering Options**: Users can filter job listings based on various parameters such as job title, location, or category. This allows for a more tailored browsing experience.
+
+- **Responsive Design**: The application is designed to be responsive, ensuring compatibility and optimal viewing experience across various devices and screen sizes.
+
+## Technologies Used
+
+- **React**: The project is built using the React library, providing a component-based architecture for building user interfaces.
+
+- **Material-UI**: Material-UI is used for designing and styling the user interface components, ensuring a modern and visually appealing look and feel.
 
 ## Getting Started
 
-First, run the development server:
+Follow these steps to get the project up and running on your local machine:
+
+1. **Clone the Repository**:
+
+   ```bash
+   git clone https://github.com/yashvi2001/WeekDayTask.git
+   ```
+
+   ## Install Dependencies
+
+2. **Navigate into the project directory and install the necessary dependencies using npm or yarn.**
 
 ```bash
-npm run dev
+cd infinity-scroll-job-cards
+npm install
 # or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+yarn install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+  ##  Run the Application
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+3. **Start the development server to run the application locally.**
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```bash
+npm start
+# or
+yarn start
+```
+## Open in Browser
 
-## Learn More
+Open your web browser and navigate to [http://localhost:3000](http://localhost:3000) to view the application.
 
-To learn more about Next.js, take a look at the following resources:
+## Usage
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+*   **Scroll**: Scroll down the page to load more job listings dynamically.
+    
+*   **Filters**: Use the provided filtering options to refine the displayed job listings based on your preferences.
+    
+## Acknowledgements
 
-## Deploy on Vercel
+*   [Material-UI](https://mui.com/): For providing the UI components and styling.
+*   [Next](https://nextjs.org/): For the powerful React Framework for building user interfaces.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
