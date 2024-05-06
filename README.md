@@ -31,7 +31,7 @@ Follow these steps to get the project up and running on your local machine:
 2. **Navigate into the project directory and install the necessary dependencies using npm or yarn.**
 
 ```bash
-cd infinity-scroll-job-cards
+cd WeekDayTask
 npm install
 # or
 yarn install
